@@ -28,7 +28,10 @@ public class NonBlockingService {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         try {
             Future<String> future = executor.submit(() -> {
-                sleep(500); // 가상의 I/O 작업 시간
+                for (int i = 1; i <= 5; i++) {
+                    sleep(100); // 가상의 I/O 작업 시간
+                    System.out.println("[비동기 작업] 작업 진행 중... " + i);
+                }
                 return repository.get(1L);
             });
 
@@ -36,7 +39,7 @@ public class NonBlockingService {
                 if(future.isDone()) {
                     break;
                 }
-                System.out.println("메인 스레드는 다른 작업을 수행할 수 있음: " + i);
+                System.out.println("[polling - " + i + "] 메인 스레드는 다른 작업을 수행할 수 있음");
                 sleep(100);
             }
 
