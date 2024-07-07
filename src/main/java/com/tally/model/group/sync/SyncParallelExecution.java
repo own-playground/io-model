@@ -1,4 +1,4 @@
-package com.tally.model.sync;
+package com.tally.model.group.sync;
 
 /**
  * Synchronous

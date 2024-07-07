@@ -1,21 +1,21 @@
-package com.tally.model.async;
+package com.tally.model.group.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Asynchronous
- * description: Task A runs first, then Task B, then Task A ends, then Task B ends
+ * description: Task A runs first, then Task B, but Task B finishes first and Task A ends
  */
-public class AsyncSecondTaskFinishLateExecution {
+public class AsyncSecondTaskFinishEarlyExecution {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        AsyncSecondTaskFinishLateExecution instance = new AsyncSecondTaskFinishLateExecution();
+        AsyncSecondTaskFinishEarlyExecution instance = new AsyncSecondTaskFinishEarlyExecution();
 
         long start = System.currentTimeMillis();
         CompletableFuture.allOf(
-                CompletableFuture.runAsync(instance::taskA), // -> sleep(2000)
-                CompletableFuture.runAsync(instance::taskB)  // -> sleep(3000)
+                CompletableFuture.runAsync(instance::taskA), // -> sleep(3000)
+                CompletableFuture.runAsync(instance::taskB)  // -> sleep(1000)
         ).get();
         long end = System.currentTimeMillis();
 
@@ -25,7 +25,7 @@ public class AsyncSecondTaskFinishLateExecution {
     public void taskA() {
         System.out.println("Task A started");
         try {
-            Thread.sleep(2000); // Simulate task taking 2 seconds
+            Thread.sleep(3000); // Simulate task taking 3 seconds
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -35,7 +35,7 @@ public class AsyncSecondTaskFinishLateExecution {
     public void taskB() {
         System.out.println("Task B started");
         try {
-            Thread.sleep(3000); // Simulate task taking 3 seconds
+            Thread.sleep(1000); // Simulate task taking 1 seconds
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
