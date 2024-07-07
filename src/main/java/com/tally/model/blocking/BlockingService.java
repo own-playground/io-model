@@ -26,14 +26,18 @@ public class BlockingService {
     public void syncBlocking() {
         System.out.println("===== [Sync][Blocking] - 시작 =====");
 
+        System.out.println("메인 스레드는 결과를 기다리는 동안 블로킹됩니다. - 시작");
         final String result = getById(2L);
+        System.out.println("메인 스레드는 결과를 기다리는 동안 블로킹됩니다. - 종료");
         System.out.println("complete execute name = " + result);
 
         System.out.println("===== [Sync][Blocking] - 종료 =====");
     }
 
     private static String getById(final Long id) {
+        System.out.println("동기 작업 시작");
         sleep(1000);
+        System.out.println("동기 작업 종료");
         return repository.get(id);
     }
 
