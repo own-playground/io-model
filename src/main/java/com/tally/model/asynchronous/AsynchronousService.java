@@ -17,31 +17,39 @@ public class AsynchronousService {
     public static void main(String[] args) {
         AsynchronousService instance = new AsynchronousService();
         instance.execute();
-
-        // 메인 스레드가 종료되지 않도록 잠시 대기
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void execute() {
-        System.out.println("Starting Case B");
+        System.out.println("Starting ");
 
         CompletableFuture<String> futureA = getById(2L, 2000); // 2초 후 완료
         CompletableFuture<String> futureB = getById(3L, 1000); // 1초 후 완료
 
         futureA.thenAccept(name -> {
-            System.out.println("Case B - A 함수 완료: name = " + name);
+            System.out.println("A 함수 완료: name = " + name);
         });
 
         futureB.thenAccept(result -> {
-            System.out.println("Case B - B 함수 완료: name = " + result);
-            System.out.println("======= Case B complete execute =======");
+            System.out.println("B 함수 완료: name = " + result);
+            System.out.println("=======  complete execute =======");
         });
 
-        System.out.println("Case B - 비동기 작업 시작");
+        System.out.println("비동기 작업 시작");
+
+        while (!futureA.isDone() || !futureB.isDone()) {
+            if (!futureA.isDone()) {
+                System.out.println("A 작업 진행 중...");
+            }
+            if (!futureB.isDone()) {
+                System.out.println("B 작업 진행 중...");
+            }
+            try {
+                Thread.sleep(100); // 짧은 시간 대기 후 다시 확인
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("모든 비동기 작업 완료");
     }
 
     /** 비동기 작업 A, B를 수행하는데 A가 먼저 끝나고 B가 다음에 끝남 */
