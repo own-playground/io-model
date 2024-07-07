@@ -23,7 +23,7 @@ public class NonBlockingService {
     }
 
     public void SyncNonBlocking() {
-        System.out.println("===== [동기][논블럭킹] - 시작 =====");
+        System.out.println("===== [Sync][Non-Blocking] - 시작 =====");
 
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         try {
@@ -46,7 +46,7 @@ public class NonBlockingService {
             e.printStackTrace();
         } finally {
             executor.shutdown();
-            System.out.println("===== [동기][논블럭킹] - 종료 =====");
+            System.out.println("===== [Sync][Non-Blocking] - 종료 =====");
         }
     }
 

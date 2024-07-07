@@ -28,7 +28,7 @@ public class MultiplexingService {
     }
 
     public void asyncBlocking() {
-        System.out.println("===== [비동기][블록킹] - 시작 =====");
+        System.out.println("===== [Async][Blocking] - 시작 =====");
         CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
             for (int i = 1; i <= 5; i++) {
                 sleep(200);
@@ -47,7 +47,7 @@ public class MultiplexingService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        System.out.println("===== [비동기][블록킹] - 종료 =====");
+        System.out.println("===== [Async][Blocking] - 종료 =====");
     }
 
     private static void sleep(final int millis) {

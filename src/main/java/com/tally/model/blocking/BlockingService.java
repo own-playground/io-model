@@ -24,12 +24,12 @@ public class BlockingService {
     }
 
     public void syncBlocking() {
-        System.out.println("===== [동기][블록킹] - 시작 =====");
+        System.out.println("===== [Sync][Blocking] - 시작 =====");
 
         final String result = getById(2L);
         System.out.println("complete execute name = " + result);
 
-        System.out.println("===== [동기][블록킹] - 종료 =====");
+        System.out.println("===== [Sync][Blocking] - 종료 =====");
     }
 
     private static String getById(final Long id) {
